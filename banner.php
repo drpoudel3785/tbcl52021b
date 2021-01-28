@@ -1,3 +1,3 @@
 <div class="col-xl-12">
-           Banner will be here
+          <img src="images/banner.jpg" alt="Banner" title="Banner" id="banner" />
 </div>
