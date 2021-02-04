@@ -32,5 +32,4 @@ echo "<br/> The total amount is $amount";
 echo "<br/> The total amount is " .number_format($amount, 2); 
 
 
-
 ?>
