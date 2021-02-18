@@ -7,16 +7,10 @@
     <title>Getting data from URL</title>
 </head>
 <body>
-
    <?php
-
        $cat = "music";
        $user = "Dharma";
-
-      
-
        echo "<a href=product_details.php?cat=$cat&user=$user>$user</a> | ";
-
        //product array
        $products  = array ("music"=>"Somesh", "book"=>"Sita", "Films"=>"Ramesh");
    foreach($products as $k => $v)
