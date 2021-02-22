@@ -14,7 +14,7 @@ include('connection.php');
 $qry = mysqli_query($conn, $sql) or die("Data Insertion Error");
 if($qry)
 {
-    echo "Data Inserted Successfully";
+    header('Location: selectusers.php?msg=User Added Successfully');
 }
 //close a connection mysqli_close()
 mysqli_close($conn);
