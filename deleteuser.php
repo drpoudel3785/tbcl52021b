@@ -4,30 +4,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delete User</title>
+    <title>Delete Users</title>
 </head>
 <body>
+
 <?php
-if(isset($_GET['id']))
+if(isset($_GET['did']))
 {
-    $deleteid=$_GET['id'];
-    $qry = "DELETE FROM users WHERE id = $deleteid ";
+    $deleteid = addslashes(trim($_GET['did']));
+    $sql = "DELETE FROM users WHERE id = $deleteid";
     include_once('connection.php');
-    $result = mysqli_query($conn, $qry);
-    if($result)
+    $qry = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+    if($qry)
     {
-       //Redirect to the all users
-        header('Location: selectusers.php?msg=Data Deleted Successfully');
-    }
-    else
-    {
-        echo "Oops! there is problem while deleting the record". mysqli_error();
+        header("Location: selectusers.php?msg=User $deleteid Deleted Successfully");
     }
 }
 else{
-    header('Location: selectusers.php');
+    header("Location: selectusers.php");
 }
-?>
-    
+?>   
 </body>
 </html>

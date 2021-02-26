@@ -9,6 +9,11 @@
 <body>
 <a href="insusers.php">Add Users</a>
 <?php
+
+if(isset($_GET['msg']))
+{
+    echo $_GET['msg'];
+}
   //selecting all users
   $s = "SELECT * FROM users ORDER BY id DESC";
   //connection to db
@@ -43,6 +48,7 @@ if(isset($_GET['msg']))
        echo "<th>Role</th>";
        echo "<th>Status</th>";
        echo "<th>Actions</th>";
+      
        echo "</tr>";
 
        $q = mysqli_query($conn, $s) or die(mysqli_error());
@@ -56,9 +62,10 @@ if(isset($_GET['msg']))
            echo "<td>". $rw['role']. "</td> ";
            echo "<td>". $rw['status']. "</td> ";
            echo "<td>
-           <a href=edituser.php?id=".$rw['id'].">EDIT</a> | 
-           <a href=deleteuser.php?id=".$rw['id'].">DELETE</a>
-           </td>";
+           <a href=edituser.php?eid=". $rw['id']. ">EDIT |
+           <a href=deleteuser.php?did=". $rw['id']. ">DELETE
+           </td> ";
+           
            echo "</tr>";
        } 
        echo "</table>";

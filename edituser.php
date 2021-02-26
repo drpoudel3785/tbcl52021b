@@ -4,49 +4,56 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EDIT User</title>
+    <title>Edit Users</title>
 </head>
 <body>
 <?php
-if(isset($_GET['id']))
+if(isset($_GET['eid']))
 {
-    $eid = $_GET['id'];
-    $sql = "SELECT * FROM users WHERE id=$eid";
-    include('connection.php');
-    $qry = mysqli_query($conn, $sql) or die(mysqli_error());
+    $editid = $_GET['eid'];
+    $sql = "SELECT * FROM users WHERE id=$editid";
+    include_once('connection.php');
+    $qry = mysqli_query($conn, $sql) or die(mysqli_error($conn));
     if($qry)
     {
-        while($r = mysqli_fetch_assoc($qry))
+        foreach($qry as $k)
         {
-            $uid = $r['id'];
-            $uname = $r['username'];
-            $upass = $r['password'];
-            $uemail = $r['email'];
-            $urole = $r['role'];
-            $ustatus = $r['status'];
+            $uid = $k['id'];
+            $uname = $k['username'];
+            $upass = $k['password'];
+            $uemail = $k['email'];
+            $urole = $k['role'];
+            $ustatus= $k['status'];
         }
         ?>
-        <form method = "POST" action="edituserprocess.php">
+        <form method="POST" action="edituserprocess.php" name="editUser">
         <fieldset>
-        <legend>Edit User <?php echo $uname;?>
-        </legend>
-        <input type="hidden"  name="id" value="<?php echo $uid;?>"/>
-        <input type="text" name="username" value="<?php echo $uname;?>"/></br/>
-        <input type="password" name="password" value=""/></br/>
-        <input type="email" name="email" value="<?php echo $uemail;?>"/></br/>
-        <input type="number" name="role" value="<?php echo $urole;?>"/></br/>
-        <input type="number" name="status" value="<?php echo $ustatus;?>"/></br/>
-        <input type="submit" name="submit" value="Update Record"/>
-
+        <legend>Edit <?php echo $uname; ?> </legend>
+        <input type="hidden" name="id" value="<?php echo $uid;?>" />
+        <input type="text" name="un" value="<?php echo $uname; ?>"/> <br/>
+        <input type="text" name="password" placeholder="Leave blank if you dont want to chagne password"/> <br/>
+        <input type="email" name="email" value="<?php echo $uemail; ?>"/> <br/>
+        <select name="role" size=1>
+          <option value="1" <?php if($urole==1) echo "selected"?>>Admin</option>
+          <option value="2" <?php if($urole==2) echo "selected"?>>User</option>
+          <option value="3" <?php if($urole==3) echo "selected"?>>Guest</option>
+        </select>
+        <br/>
+        <input type="radio" name="status" value="1" <?php if($ustatus==1) echo "checked"?> >Active
+        <input type="radio" name="status" value="0" <?php if($ustatus==0) echo "checked"?>>Deactive
+        <br/>
+       
+        <input type="submit" name="submit" value="Update Record"/> <br/>
         </fieldset>
         </form>
         <?php
     }
-
 }
-else{
-    header('Location: selectusers.php');
+else
+{
+    header("Location: selectusers.php");
 }
 ?>
+    
 </body>
-</html>
+</html> 
