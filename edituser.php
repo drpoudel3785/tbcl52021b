@@ -1,3 +1,6 @@
+<?php
+require_once('sessioncheck.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +10,9 @@
     <title>Edit Users</title>
 </head>
 <body>
+<p> Welcome, <?php echo $_SESSION['uname']; ?> | <a href="logout.php">Logout</a> </p>
+
+<hr/>
 <?php
 if(isset($_GET['eid']))
 {
