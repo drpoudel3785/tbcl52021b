@@ -16,6 +16,12 @@ if(isset($_POST['submit']))
     //collecting data from form
     $username= $_POST['username'];
     $password=md5($_POST['password']);
+    if(isset($_POST['remember']))
+    {
+        //setcookie()
+        setcookie("uname",$username, time()+(60*60*24*7),"/");
+        setcookie("upass",$_POST['password'], time()+(60*60*24*7),"/");
+    }
     //sql statement
     $sql = "SELECT * FROM users WHERE username = '$username' && password='$password' && status=1";
     //include connnection
@@ -42,8 +48,9 @@ if(isset($_POST['submit']))
     <form method="POST" action="<?php $_SERVER['PHP_SELF'];?>" name="login">
     <fieldset>
     <legend>Login</legend>
-    <input type="text" name="username" placeholder="Username" /><br/>
-    <input type="password" name="password" placeholder="Password" /><br/>
+    <input type="text" name="username" placeholder="Username" value="<?php if(isset($_COOKIE['uname'])) echo $_COOKIE['uname'];?>" /><br/>
+    <input type="password" name="password" placeholder="Password" value="<?php if(isset($_COOKIE['upass'])) echo $_COOKIE['upass'];?>" /><br/>
+    <input type="checkbox" name="remember" value="1"/>Remember Me<br/>
     <input type="submit" name="submit" value="Login" /><br/>
     </fieldset>
     </form>
